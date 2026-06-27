@@ -18,7 +18,51 @@
         }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-        /* ----- ГЛАВНЫЙ ЭКРАН (фото полностью) ----- */
+        /* ----- АНИМАЦИЯ КОРГИ (бегает по экрану) ----- */
+        .corgi-runner {
+            position: fixed;
+            bottom: 30px;
+            left: -100px;
+            z-index: 999;
+            pointer-events: none;
+            animation: runCorgi 12s linear infinite;
+        }
+        .corgi-runner img {
+            width: 80px;
+            height: auto;
+            display: block;
+        }
+
+        @keyframes runCorgi {
+            0% { left: -100px; transform: scaleX(1); }
+            25% { left: 25%; transform: scaleX(1); }
+            30% { transform: scaleX(-1); }
+            50% { left: 75%; transform: scaleX(-1); }
+            55% { transform: scaleX(1); }
+            75% { left: 25%; transform: scaleX(1); }
+            80% { transform: scaleX(-1); }
+            95% { left: 75%; transform: scaleX(-1); }
+            100% { left: calc(100% + 100px); transform: scaleX(1); }
+        }
+
+        /* ----- ПРЫГАЮЩАЯ КОРГИ ----- */
+        .corgi-bounce {
+            display: inline-block;
+            animation: bounce 1.5s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .corgi-bounce:hover {
+            animation-play-state: paused;
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        /* ====== ОСТАЛЬНЫЕ СТИЛИ ====== */
         .hero {
             height: 100vh;
             min-height: 700px;
@@ -123,7 +167,6 @@
             box-shadow: 0 12px 40px rgba(52, 168, 83, 0.4);
         }
 
-        /* ----- СЕКЦИЯ "МЫ" (фото полностью) ----- */
         .us-section { padding: 80px 0; background: #fff; }
         .us-section h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; text-align: center; color: #2d2a27; margin-bottom: 10px; }
         .us-section .sub { text-align: center; color: #6b6560; margin-bottom: 40px; font-size: 1.1rem; }
@@ -132,7 +175,6 @@
         .us-card:hover { transform: scale(1.02); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
         .us-card img { width: 100%; height: 100%; object-fit: contain; background: #faf8f6; }
 
-        /* ----- ОТДЕЛЬНЫЕ ФОТО (полностью) ----- */
         .solo-section { padding: 60px 0 80px; background: #f8f5f2; }
         .solo-section h2 { font-family: 'Playfair Display', serif; font-size: 2.6rem; text-align: center; color: #2d2a27; margin-bottom: 10px; }
         .solo-section .sub { text-align: center; color: #6b6560; margin-bottom: 40px; font-size: 1.1rem; }
@@ -142,7 +184,6 @@
         .solo-card img { width: 100%; height: 100%; object-fit: contain; background: #f8f5f2; }
         .solo-card .solo-label { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); color: #fff; padding: 8px 30px; border-radius: 50px; font-size: 1.4rem; font-weight: 300; letter-spacing: 4px; font-family: 'Playfair Display', serif; font-style: italic; }
 
-        /* ----- ГАЛЕРЕЯ ПЛОЩАДКИ (карусель) ----- */
         .venue-section { padding: 80px 0; background: #f3f0ec; }
         .venue-section h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; text-align: center; color: #2d2a27; margin-bottom: 10px; }
         .venue-section .sub { text-align: center; color: #6b6560; margin-bottom: 40px; font-size: 1.1rem; }
@@ -215,26 +256,26 @@
         }
         .carousel-dot:hover { background: #b0a49c; }
 
-        /* ----- КОРГИ (одно фото) ----- */
-        .corgi-section { padding: 80px 0; background: #fff; }
-        .corgi-section h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; text-align: center; color: #2d2a27; margin-bottom: 10px; }
-        .corgi-section .sub { text-align: center; color: #6b6560; margin-bottom: 40px; font-size: 1.1rem; }
-        .corgi-single {
-            max-width: 600px;
+        /* ----- КОРГИ С АНИМАЦИЕЙ ----- */
+        .corgi-section { padding: 80px 0; background: #fff; text-align: center; }
+        .corgi-section h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #2d2a27; margin-bottom: 10px; }
+        .corgi-section .sub { color: #6b6560; margin-bottom: 40px; font-size: 1.1rem; }
+
+        .corgi-container {
+            max-width: 400px;
             margin: 0 auto;
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 12px 40px rgba(0,0,0,0.06);
-            height: 400px;
+            padding: 20px;
+            background: #faf8f6;
         }
-        .corgi-single img {
+        .corgi-container img {
             width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background: #fff;
+            height: auto;
+            display: block;
         }
 
-        /* ----- ТАЙМЕР ----- */
         .timer-section { padding: 80px 0; text-align: center; background: #f3f0ec; }
         .timer-section h2 { font-family: 'Playfair Display', serif; font-size: 2.6rem; color: #2d2a27; }
         .timer { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-top: 35px; }
@@ -242,7 +283,6 @@
         .timer-item .num { display: block; font-size: 3.4rem; font-weight: 600; color: #2d2a27; letter-spacing: 2px; }
         .timer-item .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: #8a8480; margin-top: 4px; }
 
-        /* ----- ДЕТАЛИ ----- */
         .details-section { padding: 80px 0; background: #fff; }
         .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 30px; }
         .detail-card { background: #faf8f6; padding: 35px 25px; border-radius: 24px; text-align: center; border: 1px solid #f0ebe6; transition: 0.3s ease; }
@@ -251,12 +291,10 @@
         .detail-card h3 { font-size: 1.2rem; margin-bottom: 6px; }
         .detail-card p { color: #6b6560; font-size: 0.95rem; }
 
-        /* ----- КАРТА ----- */
         .map-section { padding: 60px 0 80px; background: #f3f0ec; }
         .map-section h2 { font-family: 'Playfair Display', serif; font-size: 2rem; text-align: center; margin-bottom: 20px; color: #2d2a27; }
         .map-section iframe { width: 100%; height: 400px; border: 0; border-radius: 28px; box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
 
-        /* ----- СЕКЦИЯ С КНОПКОЙ ----- */
         .rsvp-section { padding: 80px 0; background: #fff; text-align: center; }
         .rsvp-section h2 { font-family: 'Playfair Display', serif; font-size: 2.6rem; margin-bottom: 8px; color: #2d2a27; }
         .rsvp-section .subtitle { color: #6b6560; margin-bottom: 30px; font-size: 1.05rem; }
@@ -264,25 +302,27 @@
         footer { background: #2d2a27; color: #c5bcb5; padding: 40px 20px; text-align: center; }
         footer .hearts { font-size: 2rem; font-family: 'Playfair Display', serif; letter-spacing: 6px; }
 
-        /* ----- АДАПТИВ ----- */
         @media (max-width: 820px) {
             .us-grid { grid-template-columns: 1fr 1fr; }
             .us-card { height: 250px; }
             .solo-grid { grid-template-columns: 1fr; }
             .solo-card { height: 300px; }
             .carousel-slide { height: 300px; }
-            .corgi-single { height: 300px; }
             .timer-item { min-width: 80px; padding: 16px 20px; }
             .timer-item .num { font-size: 2.4rem; }
             .hero h1 { font-size: 3.6rem; }
             .carousel-btn { width: 36px; height: 36px; font-size: 1rem; }
+            .corgi-runner img { width: 60px; }
+            @keyframes runCorgi {
+                0% { left: -80px; }
+                100% { left: calc(100% + 80px); }
+            }
         }
         @media (max-width: 480px) {
             .us-grid { grid-template-columns: 1fr; }
             .us-card { height: 220px; }
             .solo-card { height: 250px; }
             .carousel-slide { height: 220px; }
-            .corgi-single { height: 220px; }
             .timer { gap: 12px; }
             .timer-item { min-width: 60px; padding: 12px 14px; }
             .timer-item .num { font-size: 1.8rem; }
@@ -290,10 +330,20 @@
             .hero .sub-info span { margin: 0 6px; }
             .map-section iframe { height: 280px; }
             .carousel-btn { width: 30px; height: 30px; font-size: 0.8rem; }
+            .corgi-runner img { width: 50px; }
+            @keyframes runCorgi {
+                0% { left: -60px; }
+                100% { left: calc(100% + 60px); }
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- ====== БЕГАЮЩАЯ КОРГИ ====== -->
+    <div class="corgi-runner" id="corgiRunner">
+        <img src="Варя.png" alt="Бегущая корги" />
+    </div>
 
     <!-- ====== ГЛАВНЫЙ ЭКРАН ====== -->
     <section class="hero">
@@ -302,7 +352,7 @@
             <h1>Мы женимся!</h1>
             <div class="names">Алексей &amp; Татьяна</div>
             <div class="sub-info">
-                📅 19 сентября 2026 <span>·</span> ⏰ 16:00
+                📅 19 сентября 2026 <span>·</span> ⏰ с утра до вечера
             </div>
             <a href="#rsvp" class="btn-primary">✨ Подтвердить присутствие</a>
         </div>
@@ -339,7 +389,7 @@
         </div>
     </section>
 
-    <!-- ====== ГАЛЕРЕЯ ПЛОЩАДКИ (карусель) ====== -->
+    <!-- ====== ГАЛЕРЕЯ ПЛОЩАДКИ ====== -->
     <section class="venue-section">
         <div class="container">
             <h2>🏡 Место проведения</h2>
@@ -358,14 +408,26 @@
         </div>
     </section>
 
-    <!-- ====== КОРГИ (одно фото) ====== -->
-    <section class="corgi-section">
+    <!-- ====== КОРГИ С АНИМАЦИЕЙ ====== -->
+    <section class="corgi-section" id="corgi">
         <div class="container">
-            <h2>🐕 Наша Варя</h2>
-            <p class="sub">Главный гость и хранитель настроения</p>
-            <div class="corgi-single">
-                <img src="Варя.png" alt="Корги Варя" />
+            <h2>🐕 Приглашенная звезда — Варя</h2>
+            <p class="sub">Главный гость, хранитель настроения и ... бегунья!</p>
+            
+            <div class="corgi-container">
+                <img 
+                    src="Варя.png" 
+                    alt="Корги Варя" 
+                    class="corgi-bounce"
+                    title="Погладь меня! 🐾"
+                    onclick="alert('🐕 Варя виляет хвостом и говорит: СПАСИБО! 🥰')"
+                />
             </div>
+            
+            <p style="margin-top: 20px; color: #6b6560; font-size: 0.95rem;">
+                ✨ Наведи на Варю — она прыгает! <br>
+                Кликни — она скажет спасибо! ✨
+            </p>
         </div>
     </section>
 
@@ -387,10 +449,26 @@
         <div class="container">
             <h2 style="font-family:'Playfair Display',serif; font-size:2.6rem; text-align:center;">📋 Детали</h2>
             <div class="details-grid">
-                <div class="detail-card"><div class="icon">📅</div><h3>Дата</h3><p>19 сентября 2026<br/>Суббота</p></div>
-                <div class="detail-card"><div class="icon">⏰</div><h3>Время</h3><p>Сбор: 15:00<br/>Церемония: 16:00</p></div>
-                <div class="detail-card"><div class="icon">📍</div><h3>Место</h3><p>Клязьменское водохранилище<br/>Уютная веранда у воды</p></div>
-                <div class="detail-card"><div class="icon">👗</div><h3>Дресс-код</h3><p>Стильный casual<br/>Удобная обувь</p></div>
+                <div class="detail-card">
+                    <div class="icon">📅</div>
+                    <h3>Дата</h3>
+                    <p>19 сентября 2026<br/>Суббота</p>
+                </div>
+                <div class="detail-card">
+                    <div class="icon">⏰</div>
+                    <h3>Время</h3>
+                    <p>С утра до вечера 🎉<br/>Программа мероприятия будет позже</p>
+                </div>
+                <div class="detail-card">
+                    <div class="icon">📍</div>
+                    <h3>Место</h3>
+                    <p>Клязьменское водохранилище<br/>Уютная веранда у воды</p>
+                </div>
+                <div class="detail-card">
+                    <div class="icon">👗</div>
+                    <h3>Дресс-код</h3>
+                    <p>Удобная одежда и обувь<br/>Будем много гулять! 🚶‍♀️🚶</p>
+                </div>
             </div>
         </div>
     </section>
@@ -409,7 +487,6 @@
             <h2>💌 Подтверждение присутствия</h2>
             <p class="subtitle">Пожалуйста, ответьте на несколько вопросов — это поможет нам организовать всё идеально!</p>
             
-            <!-- ⚠️ ЗАМЕНИТЕ ССЫЛКУ НА ВАШУ GOOGLE ФОРМУ -->
             <a href="https://docs.google.com/forms/d/ваш_идентификатор_формы/viewform" 
                target="_blank" 
                class="btn-google">
@@ -452,7 +529,6 @@
         const slides = document.querySelectorAll('.carousel-slide');
         const dots = document.getElementById('carouselDots');
 
-        // Создаём точки
         slides.forEach((_, index) => {
             const dot = document.createElement('button');
             dot.className = 'carousel-dot' + (index === 0 ? ' active' : '');
@@ -464,7 +540,6 @@
         function updateCarousel() {
             const offset = -currentSlide * 100;
             document.getElementById('carouselSlides').style.transform = `translateX(${offset}%)`;
-            
             document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentSlide);
             });
@@ -481,22 +556,26 @@
             updateCarousel();
         }
 
-        // Автопрокрутка
         let autoplay = setInterval(() => moveSlide(1), 4000);
-
-        // Останавливаем автопрокрутку при наведении
         const carouselContainer = document.querySelector('.carousel-container');
         carouselContainer.addEventListener('mouseenter', () => clearInterval(autoplay));
         carouselContainer.addEventListener('mouseleave', () => {
             autoplay = setInterval(() => moveSlide(1), 4000);
         });
-
-        // При клике на точку сбрасываем таймер
         document.querySelectorAll('.carousel-dot').forEach(dot => {
             dot.addEventListener('click', () => {
                 clearInterval(autoplay);
                 autoplay = setInterval(() => moveSlide(1), 4000);
             });
+        });
+
+        // ====== КОРГИ ОСТАНАВЛИВАЕТСЯ ПРИ НАВЕДЕНИИ ======
+        const corgiRunner = document.getElementById('corgiRunner');
+        corgiRunner.addEventListener('mouseenter', () => {
+            corgiRunner.style.animationPlayState = 'paused';
+        });
+        corgiRunner.addEventListener('mouseleave', () => {
+            corgiRunner.style.animationPlayState = 'running';
         });
     </script>
 </body>
