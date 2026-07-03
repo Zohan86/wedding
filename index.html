@@ -45,21 +45,118 @@
             100% { left: calc(100% + 100px); transform: scaleX(1); }
         }
 
-        /* ----- ПРЫГАЮЩАЯ КОРГИ ----- */
-        .corgi-bounce {
-            display: inline-block;
-            animation: bounce 1.5s ease-in-out infinite;
-            cursor: pointer;
-            transition: transform 0.3s;
+        /* ====== МИНИ-ИГРА "ПОГЛАДЬ ВАРЕЧКУ" ====== */
+        .game-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #fdf6f0 0%, #f5ede8 100%);
+            text-align: center;
         }
-        .corgi-bounce:hover {
-            animation-play-state: paused;
-            transform: scale(1.1) rotate(-5deg);
+        .game-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #2d2a27;
+            margin-bottom: 10px;
+        }
+        .game-section .sub {
+            color: #6b6560;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-30px) rotate(5deg); }
+        .game-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 32px;
+            padding: 40px 30px 35px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+        .game-container:hover {
+            border-color: #d4c5bc;
+        }
+
+        .game-corgi {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: 0.3s ease;
+            position: relative;
+            background: #faf8f6;
+        }
+        .game-corgi:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+        .game-corgi:active {
+            transform: scale(0.95);
+        }
+        .game-corgi img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s ease;
+            display: block;
+        }
+
+        /* Анимация при клике */
+        .game-corgi.pop {
+            animation: pop 0.4s ease;
+        }
+        @keyframes pop {
+            0% { transform: scale(1); }
+            30% { transform: scale(1.15) rotate(-5deg); }
+            60% { transform: scale(0.95) rotate(3deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .game-emoji {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            min-height: 70px;
+            transition: 0.3s;
+        }
+
+        .game-message {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2d2a27;
+            margin-bottom: 8px;
+            min-height: 40px;
+            transition: 0.3s;
+        }
+
+        .game-counter {
+            font-size: 1rem;
+            color: #8a7a72;
+            margin-bottom: 5px;
+        }
+        .game-counter span {
+            font-weight: 700;
+            color: #5e3c38;
+            font-size: 1.4rem;
+        }
+
+        .game-reset-btn {
+            margin-top: 15px;
+            padding: 10px 30px;
+            background: #e8ddd6;
+            color: #4a3f3a;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .game-reset-btn:hover {
+            background: #d5c7be;
+            transform: translateY(-2px);
         }
 
         /* ====== ОСТАЛЬНЫЕ СТИЛИ ====== */
@@ -256,25 +353,9 @@
         }
         .carousel-dot:hover { background: #b0a49c; }
 
-        /* ----- КОРГИ С АНИМАЦИЕЙ ----- */
         .corgi-section { padding: 80px 0; background: #fff; text-align: center; }
         .corgi-section h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #2d2a27; margin-bottom: 10px; }
         .corgi-section .sub { color: #6b6560; margin-bottom: 40px; font-size: 1.1rem; }
-
-        .corgi-container {
-            max-width: 400px;
-            margin: 0 auto;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
-            padding: 20px;
-            background: #faf8f6;
-        }
-        .corgi-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
 
         .timer-section { padding: 80px 0; text-align: center; background: #f3f0ec; }
         .timer-section h2 { font-family: 'Playfair Display', serif; font-size: 2.6rem; color: #2d2a27; }
@@ -313,6 +394,7 @@
             .hero h1 { font-size: 3.6rem; }
             .carousel-btn { width: 36px; height: 36px; font-size: 1rem; }
             .corgi-runner img { width: 60px; }
+            .game-corgi { width: 140px; height: 140px; }
             @keyframes runCorgi {
                 0% { left: -80px; }
                 100% { left: calc(100% + 80px); }
@@ -331,6 +413,8 @@
             .map-section iframe { height: 280px; }
             .carousel-btn { width: 30px; height: 30px; font-size: 0.8rem; }
             .corgi-runner img { width: 50px; }
+            .game-corgi { width: 120px; height: 120px; }
+            .game-emoji { font-size: 3rem; }
             @keyframes runCorgi {
                 0% { left: -60px; }
                 100% { left: calc(100% + 60px); }
@@ -408,26 +492,24 @@
         </div>
     </section>
 
-    <!-- ====== КОРГИ С АНИМАЦИЕЙ ====== -->
-    <section class="corgi-section" id="corgi">
+    <!-- ====== МИНИ-ИГРА "ПОГЛАДЬ ВАРЕЧКУ" ====== -->
+    <section class="game-section" id="game">
         <div class="container">
-            <h2>🐕 Приглашенная звезда — Варя</h2>
-            <p class="sub">Главный гость, хранитель настроения и ... бегунья!</p>
+            <h2>🐕 Погладь Варечку</h2>
+            <p class="sub">Кликни на Варю, чтобы её порадовать!</p>
             
-            <div class="corgi-container">
-                <img 
-                    src="Варя.png" 
-                    alt="Корги Варя" 
-                    class="corgi-bounce"
-                    title="Погладь меня! 🐾"
-                    onclick="alert('🐕 Варя виляет хвостом и говорит: СПАСИБО! 🥰')"
-                />
+            <div class="game-container" id="gameContainer">
+                <div class="game-emoji" id="gameEmoji">🐶</div>
+                
+                <div class="game-corgi" id="gameCorgi" onclick="petCorgi()">
+                    <img src="Варя.png" alt="Корги Варя" id="corgiImage" />
+                </div>
+                
+                <div class="game-message" id="gameMessage">👋 Погладь меня!</div>
+                <div class="game-counter">❤️ Поглаживаний: <span id="petCount">0</span></div>
+                
+                <button class="game-reset-btn" onclick="resetGame()">🔄 Сбросить</button>
             </div>
-            
-            <p style="margin-top: 20px; color: #6b6560; font-size: 0.95rem;">
-                ✨ Наведи на Варю — она прыгает! <br>
-                Кликни — она скажет спасибо! ✨
-            </p>
         </div>
     </section>
 
@@ -577,6 +659,14 @@
         corgiRunner.addEventListener('mouseleave', () => {
             corgiRunner.style.animationPlayState = 'running';
         });
-    </script>
-</body>
-</html>
+
+        // ====== МИНИ-ИГРА "ПОГЛАДЬ ВАРЕЧКУ" ======
+        let petCount = 0;
+        let reactionIndex = 0;
+
+        const reactions = [
+            { emoji: '😊', message: 'Варя довольно виляет хвостом!' },
+            { emoji: '🥰', message: 'Варя мурлычет от счастья!' },
+            { emoji: '😍', message: 'Варя переворачивается на спинку!' },
+            { emoji: '🤗', message: 'Варя обнимает вас лапой!' },
+            { emoji: '
