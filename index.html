@@ -205,6 +205,43 @@
         }
         .carousel-dot:hover { background: #b0a49c; }
 
+        /* ----- НОВЫЕ СЕКЦИИ: ФОРМАТ И ПОДАРКИ ----- */
+        .info-block {
+            padding: 60px 0;
+            background: #fff;
+            border-bottom: 1px solid #f0ebe6;
+        }
+        .info-block:last-of-type {
+            border-bottom: none;
+        }
+        .info-block h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            text-align: center;
+            color: #2d2a27;
+            margin-bottom: 16px;
+        }
+        .info-block .content {
+            max-width: 750px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: #4a3f3a;
+            line-height: 1.8;
+        }
+        .info-block .content p {
+            margin-bottom: 16px;
+        }
+        .info-block .content .highlight {
+            background: #f8f5f2;
+            padding: 20px 30px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #b8a89e;
+        }
+        .info-block .content .highlight p:last-child {
+            margin-bottom: 0;
+        }
+
         /* ----- КОРГИ ----- */
         .corgi-section { padding: 80px 0; background: #fff; text-align: center; }
         .corgi-section h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #2d2a27; margin-bottom: 10px; }
@@ -232,14 +269,27 @@
         .timer-item .num { display: block; font-size: 3.4rem; font-weight: 600; color: #2d2a27; letter-spacing: 2px; }
         .timer-item .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: #8a8480; margin-top: 4px; }
 
-        /* ----- ДЕТАЛИ ----- */
+        /* ----- ДЕТАЛИ (расширенный блок) ----- */
         .details-section { padding: 80px 0; background: #fff; }
-        .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 30px; }
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
         .detail-card { background: #faf8f6; padding: 35px 25px; border-radius: 24px; text-align: center; border: 1px solid #f0ebe6; transition: 0.3s ease; }
         .detail-card:hover { border-color: #c0b5ad; transform: translateY(-4px); }
         .detail-card .icon { font-size: 2.8rem; margin-bottom: 12px; }
         .detail-card h3 { font-size: 1.2rem; margin-bottom: 6px; }
         .detail-card p { color: #6b6560; font-size: 0.95rem; }
+
+        .detail-card .extra-info {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e8e0da;
+            font-size: 0.85rem;
+            color: #8a7a72;
+        }
 
         /* ----- КАРТА ----- */
         .map-section { padding: 60px 0 80px; background: #f3f0ec; }
@@ -253,7 +303,7 @@
 
         /* ----- ПОДВАЛ ----- */
         footer { background: #2d2a27; color: #c5bcb5; padding: 40px 20px; text-align: center; }
-        footer .hearts { font-size: 2rem; font-family: 'Playfair Display', serif; letter-spacing: 6px; }
+        footer .names { font-size: 2rem; font-family: 'Playfair Display', serif; letter-spacing: 6px; }
 
         /* ----- АДАПТИВ ----- */
         @media (max-width: 820px) {
@@ -265,6 +315,9 @@
             .timer-item .num { font-size: 2.4rem; }
             .hero h1 { font-size: 3.6rem; }
             .carousel-btn { width: 36px; height: 36px; font-size: 1rem; }
+            .info-block h2 { font-size: 2rem; }
+            .info-block .content { font-size: 1rem; }
+            .details-grid { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 480px) {
             .us-grid { grid-template-columns: 1fr; }
@@ -278,6 +331,10 @@
             .hero .sub-info span { margin: 0 6px; }
             .map-section iframe { height: 280px; }
             .carousel-btn { width: 30px; height: 30px; font-size: 0.8rem; }
+            .info-block { padding: 40px 0; }
+            .info-block h2 { font-size: 1.6rem; }
+            .info-block .content .highlight { padding: 16px 20px; }
+            .details-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -286,7 +343,7 @@
     <!-- ====== ГЛАВНЫЙ ЭКРАН ====== -->
     <section class="hero">
         <div class="hero-content">
-            <div class="hero-badge">❤️ Приглашение</div>
+            <div class="hero-badge">Приглашение</div>
             <h1>Скоро свадьба!</h1>
             <div class="names">Алексей &amp; Татьяна</div>
             <div class="sub-info">
@@ -313,7 +370,7 @@
     <section class="venue-section">
         <div class="container">
             <h2>🏡 Место проведения</h2>
-            <p class="sub">Уютная веранда на берегу Клязьменского водохранилища</p>
+            <p class="sub">Уютная веранда на берегу Клязминского водохранилища</p>
             
             <div class="carousel-container">
                 <div class="carousel-slides" id="carouselSlides">
@@ -328,12 +385,41 @@
         </div>
     </section>
 
+    <!-- ====== ФОРМАТ И АТМОСФЕРА ====== -->
+    <section class="info-block">
+        <div class="container">
+            <h2>🎉 Формат и атмосфера</h2>
+            <div class="content">
+                <p>У нас планируется лёгкая непринуждённая атмосфера и много веселья. В программе вкусная еда, развлечения и весёлые конкурсы.</p>
+                <p>У нас отсутствует определённая тематика свадьбы, нет строгого дресс-кода — будем рады гостям, одетым в стиле <strong>Casual</strong>.</p>
+                <div class="highlight">
+                    <p><strong>Творческие идеи приветствуются!</strong></p>
+                    <p>Если ты планируешь подготовить для нас песню, сценку или у тебя есть любые другие творческие идеи, пожалуйста, сообщи нам, и мы включим твоё выступление в тайминг мероприятия.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== О ПОДАРКАХ ====== -->
+    <section class="info-block">
+        <div class="container">
+            <h2>🎁 О подарках</h2>
+            <div class="content">
+                <p>Твоё присутствие на нашем празднике — лучший подарок для нас!</p>
+                <div class="highlight">
+                    <p><strong>Пожалуйста, не дари нам большие букеты живых цветов</strong>, так как мы совсем не успеем насладиться их красотой в полной мере.</p>
+                    <p>Будем рады любой другой альтернативе — твоим замечательным идеям или в денежном эквиваленте.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ====== КОРГИ ====== -->
     <section class="corgi-section">
         <div class="container">
-            <h2>🐕 Варя</h2>
+            <h2>Варя</h2>
             <p class="sub">
-                Главный эксперт по вкусняшкам и вашим сердечкам 💛<br/>
+                Главный эксперт по вкусняшкам и вашим сердечкам<br/>
                 <span style="font-style: italic; font-size: 0.9rem;">
                     «Я здесь просто кайфую и виляю хвостиком! Жду вкусняшек и краду ваши сердечки»
                 </span>
@@ -357,30 +443,46 @@
         </div>
     </section>
 
-    <!-- ====== ДЕТАЛИ ====== -->
+    <!-- ====== РАСШИРЕННЫЙ БЛОК "ДЕТАЛИ" ====== -->
     <section class="details-section">
         <div class="container">
-            <h2 style="font-family:'Playfair Display',serif; font-size:2.6rem; text-align:center;">📋 Детали</h2>
+            <h2 style="font-family:'Playfair Display',serif; font-size:2.6rem; text-align:center;">Детали события</h2>
             <div class="details-grid">
                 <div class="detail-card">
                     <div class="icon">📅</div>
                     <h3>Дата</h3>
                     <p>19 сентября 2026<br/>Суббота</p>
+                    <div class="extra-info">Начало: предварительно с утра</div>
                 </div>
                 <div class="detail-card">
                     <div class="icon">⏰</div>
                     <h3>Время</h3>
-                    <p>Предварительно<br/>с утра до вечера 🎉</p>
+                    <p>с утра до вечера</p>
+                    <div class="extra-info">Точный тайминг пришлём позже</div>
                 </div>
                 <div class="detail-card">
                     <div class="icon">📍</div>
                     <h3>Место</h3>
-                    <p>Клязьменское водохранилище<br/>Уютная веранда у воды</p>
+                    <p>Клязминское водохранилище</p>
+                    <div class="extra-info">Уютная веранда у воды</div>
                 </div>
                 <div class="detail-card">
                     <div class="icon">👗</div>
                     <h3>Дресс-код</h3>
-                    <p>Удобная одежда и обувь<br/>Будем много гулять! 🚶‍♀️🚶</p>
+                    <p>Casual</p>
+                    <div class="extra-info">Удобная одежда и обувь, будет много движения</div>
+                </div>
+                <div class="detail-card">
+                    <div class="icon">🎤</div>
+                    <h3>Творчество</h3>
+                    <p>Песни, сценки, идеи</p>
+                    <div class="extra-info">Сообщите нам, и мы включим вас в программу</div>
+                </div>
+                <div class="detail-card">
+                    <div class="icon">🎁</div>
+                    <h3>Подарки</h3>
+                    <p>Ваше присутствие — лучший подарок</p>
+                    <div class="extra-info">Без больших букетов, рады идеям и денежному эквиваленту</div>
                 </div>
             </div>
         </div>
@@ -397,7 +499,7 @@
     <!-- ====== КНОПКА ДЛЯ ОПРОСА ====== -->
     <section class="rsvp-section" id="rsvp">
         <div class="container">
-            <h2>💌 Подтверждение присутствия</h2>
+            <h2>Подтверждение присутствия</h2>
             <p class="subtitle">Пожалуйста, ответьте на несколько вопросов — это поможет нам организовать всё идеально!</p>
             
             <a href="https://docs.google.com/forms/d/e/1FAIpQLScVszJmWrbkUrjo24wCQEsM91hlztP6G8lQGjbWO0_k_1s7wQ/viewform?usp=header" 
@@ -414,9 +516,9 @@
 
     <!-- ====== ПОДВАЛ ====== -->
     <footer>
-        <div class="hearts">❤️ Алексей &amp; Татьяна ❤️</div>
+        <div class="names">Алексей &amp; Татьяна</div>
         <p style="margin-top:10px; opacity:0.7; font-size:0.95rem;">С нетерпением ждём вас в этот особенный день!</p>
-        <p style="margin-top:6px; font-size:0.8rem; opacity:0.5;">🏔️ 19.09.2026 · Клязьменское водохранилище</p>
+        <p style="margin-top:6px; font-size:0.8rem; opacity:0.5;">🏔️ 19.09.2026 · Клязминское водохранилище</p>
     </footer>
 
     <script>
