@@ -13,7 +13,6 @@
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#faf8f6" />
     
-    <!-- Preload только для критичных ресурсов -->
     <link rel="preload" as="image" href="hero-fallback.png" />
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"/>
@@ -828,162 +827,52 @@
 
         /* ===== АДАПТИВ ===== */
         @media (max-width: 820px) {
-            .carousel-slide {
-                height: 450px;
-            }
-            .timer-item {
-                min-width: 80px;
-                padding: 16px 20px;
-            }
-            .timer-item .num {
-                font-size: 2.4rem;
-            }
-            .carousel-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-            .info-block h2 {
-                font-size: 2rem;
-            }
-            .info-block .content {
-                font-size: 1rem;
-            }
-            .details-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .corgi-treat-wrapper .corgi-image {
-                height: 220px;
-            }
-            .hero .names {
-                font-size: clamp(2rem, 6vw, 3.5rem);
-                letter-spacing: 4px;
-            }
-            .corgi-stats {
-                grid-template-columns: 1fr 1fr;
-                gap: 12px;
-            }
-            .outfit-carousel-btn {
-                width: 34px;
-                height: 34px;
-                font-size: 1rem;
-            }
+            .carousel-slide { height: 450px; }
+            .timer-item { min-width: 80px; padding: 16px 20px; }
+            .timer-item .num { font-size: 2.4rem; }
+            .carousel-btn { width: 40px; height: 40px; font-size: 1.2rem; }
+            .info-block h2 { font-size: 2rem; }
+            .info-block .content { font-size: 1rem; }
+            .details-grid { grid-template-columns: 1fr 1fr; }
+            .corgi-treat-wrapper .corgi-image { height: 220px; }
+            .hero .names { font-size: clamp(2rem, 6vw, 3.5rem); letter-spacing: 4px; }
+            .corgi-stats { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .outfit-carousel-btn { width: 34px; height: 34px; font-size: 1rem; }
         }
         @media (max-width: 480px) {
-            .carousel-slide {
-                height: 350px;
-            }
-            .timer {
-                gap: 12px;
-            }
-            .timer-item {
-                min-width: 60px;
-                padding: 12px 14px;
-            }
-            .timer-item .num {
-                font-size: 1.8rem;
-            }
-            .hero .sub-info {
-                font-size: 0.85rem;
-                padding: 8px 18px;
-            }
-            .hero .sub-info span {
-                margin: 0 6px;
-            }
-            .map-section iframe {
-                height: 280px;
-            }
-            .carousel-btn {
-                width: 34px;
-                height: 34px;
-                font-size: 1rem;
-            }
-            .info-block {
-                padding: 40px 0;
-            }
-            .info-block h2 {
-                font-size: 1.6rem;
-            }
-            .info-block .content .highlight {
-                padding: 16px 20px;
-            }
-            .details-grid {
-                grid-template-columns: 1fr;
-            }
-            .corgi-treat-wrapper {
-                padding: 20px;
-            }
-            .corgi-treat-wrapper .corgi-image {
-                height: 180px;
-            }
-            .corgi-stats {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-            .corgi-stat .number {
-                font-size: 1.6rem;
-            }
-            .btn-treat, .btn-like {
-                padding: 12px 30px;
-                font-size: 1rem;
-            }
-            .hero .names {
-                font-size: clamp(1.8rem, 5vw, 2.8rem);
-                letter-spacing: 2px;
-            }
-            .timer-ended {
-                font-size: 1.8rem;
-            }
-            .us-section h2,
-            .venue-section h2,
-            .corgi-treat-section h2,
-            .corgi-outfit-section h2,
-            .details-section h2,
-            .rsvp-section h2 {
-                font-size: 2rem !important;
-            }
-            .outfit-info {
-                flex-direction: column;
-                align-items: center;
-                gap: 4px;
-            }
-            .outfit-carousel-btn {
-                width: 30px;
-                height: 30px;
-                font-size: 0.9rem;
-            }
-            .outfit-carousel-btn.prev {
-                left: 8px;
-            }
-            .outfit-carousel-btn.next {
-                right: 8px;
-            }
-            .corgi-outfit-wrapper {
-                padding: 16px;
-            }
+            .carousel-slide { height: 350px; }
+            .timer { gap: 12px; }
+            .timer-item { min-width: 60px; padding: 12px 14px; }
+            .timer-item .num { font-size: 1.8rem; }
+            .hero .sub-info { font-size: 0.85rem; padding: 8px 18px; }
+            .hero .sub-info span { margin: 0 6px; }
+            .map-section iframe { height: 280px; }
+            .carousel-btn { width: 34px; height: 34px; font-size: 1rem; }
+            .info-block { padding: 40px 0; }
+            .info-block h2 { font-size: 1.6rem; }
+            .info-block .content .highlight { padding: 16px 20px; }
+            .details-grid { grid-template-columns: 1fr; }
+            .corgi-treat-wrapper { padding: 20px; }
+            .corgi-treat-wrapper .corgi-image { height: 180px; }
+            .corgi-stats { grid-template-columns: 1fr; gap: 10px; }
+            .corgi-stat .number { font-size: 1.6rem; }
+            .btn-treat, .btn-like { padding: 12px 30px; font-size: 1rem; }
+            .hero .names { font-size: clamp(1.8rem, 5vw, 2.8rem); letter-spacing: 2px; }
+            .timer-ended { font-size: 1.8rem; }
+            .us-section h2, .venue-section h2, .corgi-treat-section h2, .corgi-outfit-section h2, .details-section h2, .rsvp-section h2 { font-size: 2rem !important; }
+            .outfit-info { flex-direction: column; align-items: center; gap: 4px; }
+            .outfit-carousel-btn { width: 30px; height: 30px; font-size: 0.9rem; }
+            .outfit-carousel-btn.prev { left: 8px; }
+            .outfit-carousel-btn.next { right: 8px; }
+            .corgi-outfit-wrapper { padding: 16px; }
         }
         @media (max-width: 360px) {
-            .hero .names {
-                font-size: 1.8rem;
-            }
-            .timer-item {
-                min-width: 50px;
-                padding: 8px 10px;
-            }
-            .timer-item .num {
-                font-size: 1.4rem;
-            }
-            .btn-primary, .btn-google {
-                padding: 12px 30px;
-                font-size: 0.9rem;
-            }
-            .hero .sub-info {
-                font-size: 0.75rem;
-                padding: 6px 12px;
-            }
-            .carousel-slide {
-                height: 280px;
-            }
+            .hero .names { font-size: 1.8rem; }
+            .timer-item { min-width: 50px; padding: 8px 10px; }
+            .timer-item .num { font-size: 1.4rem; }
+            .btn-primary, .btn-google { padding: 12px 30px; font-size: 0.9rem; }
+            .hero .sub-info { font-size: 0.75rem; padding: 6px 12px; }
+            .carousel-slide { height: 280px; }
         }
     </style>
 </head>
@@ -1255,6 +1144,10 @@
             'Ариель'
         ];
 
+        // ====== НАСТРОЙКА API ======
+        // ВАШ НОВЫЙ URL ДЛЯ РАБОТЫ С ЛАЙКАМИ
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzuKf_ys5xjgoCBFaqGfL6V-cEEOfMofR7hUYoXRKCK8OSa3G2BdTqwekxaoMnoI6E5/exec';
+
         // ====== ТАЙМЕР ======
         function updateTimer() {
             const wedding = new Date(2026, 8, 19, 16, 0, 0).getTime();
@@ -1412,7 +1305,7 @@
             return { goTo, next, prev, current: () => current };
         }
 
-        // ====== КАРУСЕЛЬ КОСТЮМОВ ======
+        // ====== КАРУСЕЛЬ КОСТЮМОВ С РЕАЛЬНЫМ ГОЛОСОВАНИЕМ ======
         function initOutfitCarousel() {
             const container = document.getElementById('outfitCarousel');
             const slides = document.getElementById('outfitSlides');
@@ -1430,33 +1323,65 @@
             let isDragging = false;
             let initialOffset = 0;
             let autoplayInterval = null;
+            let likesData = {};
 
-            // Загружаем лайки из localStorage (общие для всех пользователей)
-            function loadLikes() {
-                const data = localStorage.getItem('outfitLikes');
-                if (data) {
-                    try {
-                        return JSON.parse(data);
-                    } catch {
-                        return {};
+            // ====== ПОЛУЧИТЬ ЛАЙКИ С СЕРВЕРА ======
+            async function fetchLikes() {
+                try {
+                    const response = await fetch(API_URL);
+                    const data = await response.json();
+                    likesData = data;
+                    return data;
+                } catch (error) {
+                    console.error('Ошибка загрузки лайков:', error);
+                    // Если ошибка - используем локальные данные как запасной вариант
+                    const local = localStorage.getItem('outfitLikesFallback');
+                    if (local) {
+                        likesData = JSON.parse(local);
+                    } else {
+                        // Инициализируем пустыми данными
+                        const emptyData = {};
+                        OUTFIT_NAMES.forEach(name => { emptyData[name] = 0; });
+                        likesData = emptyData;
                     }
+                    return likesData;
                 }
-                return {};
             }
 
-            let likes = loadLikes();
-
-            function saveLikes() {
-                localStorage.setItem('outfitLikes', JSON.stringify(likes));
+            // ====== ОТПРАВИТЬ ЛАЙК ======
+            async function sendLike(outfitName) {
+                try {
+                    await fetch(API_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ outfit: outfitName })
+                    });
+                    return true;
+                } catch (error) {
+                    console.error('Ошибка отправки лайка:', error);
+                    return false;
+                }
             }
 
-            function getLikes(index) {
-                return likes[index] || 0;
-            }
-
-            function setLikes(index, value) {
-                likes[index] = value;
-                saveLikes();
+            // ====== УБРАТЬ ЛАЙК ======
+            async function removeLike(outfitName) {
+                try {
+                    await fetch(API_URL, {
+                        method: 'DELETE',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ outfit: outfitName })
+                    });
+                    return true;
+                } catch (error) {
+                    console.error('Ошибка удаления лайка:', error);
+                    return false;
+                }
             }
 
             // Создаём слайды
@@ -1493,6 +1418,11 @@
             }
             createDots();
 
+            function getLikes(index) {
+                const name = OUTFIT_NAMES[index];
+                return likesData[name] || 0;
+            }
+
             function update() {
                 const offset = -current * 100;
                 slides.style.transform = `translateX(${offset}%)`;
@@ -1505,6 +1435,7 @@
                 const likesCount = getLikes(current);
                 outfitLikes.textContent = likesCount;
 
+                // Проверяем, лайкнул ли пользователь этот костюм
                 const userLikes = JSON.parse(localStorage.getItem('userLikedOutfits') || '{}');
                 if (userLikes[current]) {
                     likeBtn.classList.add('liked');
@@ -1601,15 +1532,22 @@
             });
             container.addEventListener('mouseleave', startAutoplay);
 
-            // Лайк
-            likeBtn.addEventListener('click', function() {
+            // ====== ЛАЙК ======
+            likeBtn.addEventListener('click', async function() {
+                const outfitName = OUTFIT_NAMES[current];
                 const userLikes = JSON.parse(localStorage.getItem('userLikedOutfits') || '{}');
                 
                 if (userLikes[current]) {
                     // Убираем лайк
                     delete userLikes[current];
-                    const newCount = getLikes(current) - 1;
-                    setLikes(current, newCount);
+                    localStorage.setItem('userLikedOutfits', JSON.stringify(userLikes));
+                    
+                    // Отправляем на сервер
+                    await removeLike(outfitName);
+                    
+                    // Обновляем данные
+                    await fetchLikes();
+                    
                     this.classList.remove('liked');
                     this.innerHTML = '👍 Лайкнуть этот костюм';
                     outfitMessage.textContent = '👎 Лайк убран!';
@@ -1617,8 +1555,14 @@
                 } else {
                     // Ставим лайк
                     userLikes[current] = true;
-                    const newCount = getLikes(current) + 1;
-                    setLikes(current, newCount);
+                    localStorage.setItem('userLikedOutfits', JSON.stringify(userLikes));
+                    
+                    // Отправляем на сервер
+                    await sendLike(outfitName);
+                    
+                    // Обновляем данные
+                    await fetchLikes();
+                    
                     this.classList.add('liked');
                     this.innerHTML = '❤️ Лайкнут!';
                     
@@ -1628,14 +1572,12 @@
                         '🌟 Варя в восторге!',
                         '🎉 Ты знаешь толк в моде!',
                         '💃 Варя уже кружится в этом костюме!',
-                        '👑 Королевский выбор!',
-                        '✨ Варя сияет!'
+                        '👑 Королевский выбор!'
                     ];
                     outfitMessage.textContent = reactions[Math.floor(Math.random() * reactions.length)];
                     outfitMessage.style.color = '#d4a373';
                 }
                 
-                localStorage.setItem('userLikedOutfits', JSON.stringify(userLikes));
                 update();
                 
                 setTimeout(() => {
@@ -1643,8 +1585,20 @@
                 }, 2000);
             });
 
-            update();
-            startAutoplay();
+            // ====== ЗАГРУЗКА ДАННЫХ ======
+            async function init() {
+                await fetchLikes();
+                update();
+                startAutoplay();
+            }
+
+            // Обновляем лайки каждые 10 секунд (для синхронизации)
+            setInterval(async () => {
+                await fetchLikes();
+                update();
+            }, 10000);
+
+            init();
         }
 
         // ====== КОРГИ - ВКУСНЯШКИ ======
@@ -1655,10 +1609,7 @@
             const treatMessage = document.getElementById('treatMessage');
 
             if (treatBtn && treatCount && totalTreatCount && treatMessage) {
-                // Личный счетчик пользователя
                 let personalCount = parseInt(localStorage.getItem('treatCount')) || 0;
-                
-                // Общий счетчик (все пользователи)
                 let totalCount = parseInt(localStorage.getItem('totalTreatCount')) || 0;
                 
                 treatCount.textContent = personalCount;
@@ -1676,30 +1627,23 @@
                 ];
 
                 treatBtn.addEventListener('click', function() {
-                    // Увеличиваем личный счетчик
                     personalCount++;
-                    // Увеличиваем общий счетчик
                     totalCount++;
                     
-                    // Сохраняем
                     localStorage.setItem('treatCount', personalCount);
                     localStorage.setItem('totalTreatCount', totalCount);
                     
-                    // Обновляем отображение
                     treatCount.textContent = personalCount;
                     totalTreatCount.textContent = totalCount;
 
-                    // Показываем реакцию
                     const randomIndex = Math.floor(Math.random() * reactions.length);
                     treatMessage.textContent = reactions[randomIndex];
 
-                    // Анимация кнопки
                     this.style.backgroundColor = '#e8b88a';
                     setTimeout(() => {
                         this.style.backgroundColor = '#d4a373';
                     }, 300);
 
-                    // Анимация сообщения
                     treatMessage.style.color = '#d4a373';
                     treatMessage.style.transform = 'scale(1.05)';
                     setTimeout(() => {
