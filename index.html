@@ -896,7 +896,7 @@
         </div>
     </section>
 
-    <!-- ====== КАРУСЕЛЬ "МЫ" ====== -->
+    <!-- ====== КАРУСЕЛЬ "МЫ" (13 ФОТО) ====== -->
     <section class="us-section">
         <div class="container">
             <h2>Вместе в любых обстоятельствах</h2>
@@ -913,6 +913,9 @@
                     <div class="carousel-slide"><img src="Мы_8.png" alt="Алексей и Татьяна фото 8" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
                     <div class="carousel-slide"><img src="Мы_9.png" alt="Алексей и Татьяна фото 9" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
                     <div class="carousel-slide"><img src="Мы_10.png" alt="Алексей и Татьяна фото 10" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
+                    <div class="carousel-slide"><img src="Мы_11.png" alt="Алексей и Татьяна фото 11" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
+                    <div class="carousel-slide"><img src="Мы_12.png" alt="Алексей и Татьяна фото 12" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
+                    <div class="carousel-slide"><img src="Мы_13.png" alt="Алексей и Татьяна фото 13" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
                 </div>
                 <button class="carousel-btn prev" data-carousel="us" aria-label="Предыдущее фото">‹</button>
                 <button class="carousel-btn next" data-carousel="us" aria-label="Следующее фото">›</button>
@@ -1145,7 +1148,6 @@
         ];
 
         // ====== НАСТРОЙКА API ======
-        // ВАШ НОВЫЙ URL ДЛЯ РАБОТЫ С ЛАЙКАМИ
         const API_URL = 'https://script.google.com/macros/s/AKfycbzuKf_ys5xjgoCBFaqGfL6V-cEEOfMofR7hUYoXRKCK8OSa3G2BdTqwekxaoMnoI6E5/exec';
 
         // ====== ТАЙМЕР ======
@@ -1305,7 +1307,7 @@
             return { goTo, next, prev, current: () => current };
         }
 
-        // ====== КАРУСЕЛЬ КОСТЮМОВ С РЕАЛЬНЫМ ГОЛОСОВАНИЕМ ======
+        // ====== КАРУСЕЛЬ КОСТЮМОВ ======
         function initOutfitCarousel() {
             const container = document.getElementById('outfitCarousel');
             const slides = document.getElementById('outfitSlides');
@@ -1334,12 +1336,10 @@
                     return data;
                 } catch (error) {
                     console.error('Ошибка загрузки лайков:', error);
-                    // Если ошибка - используем локальные данные как запасной вариант
                     const local = localStorage.getItem('outfitLikesFallback');
                     if (local) {
                         likesData = JSON.parse(local);
                     } else {
-                        // Инициализируем пустыми данными
                         const emptyData = {};
                         OUTFIT_NAMES.forEach(name => { emptyData[name] = 0; });
                         likesData = emptyData;
@@ -1354,9 +1354,7 @@
                     await fetch(API_URL, {
                         method: 'POST',
                         mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ outfit: outfitName })
                     });
                     return true;
@@ -1372,9 +1370,7 @@
                     await fetch(API_URL, {
                         method: 'DELETE',
                         mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ outfit: outfitName })
                     });
                     return true;
@@ -1435,7 +1431,6 @@
                 const likesCount = getLikes(current);
                 outfitLikes.textContent = likesCount;
 
-                // Проверяем, лайкнул ли пользователь этот костюм
                 const userLikes = JSON.parse(localStorage.getItem('userLikedOutfits') || '{}');
                 if (userLikes[current]) {
                     likeBtn.classList.add('liked');
@@ -1477,7 +1472,6 @@
             function next() { goTo(current + 1); }
             function prev() { goTo(current - 1); }
 
-            // Автопрокрутка
             function startAutoplay() {
                 if (autoplayInterval) clearInterval(autoplayInterval);
                 autoplayInterval = setInterval(next, 4000);
@@ -1488,7 +1482,6 @@
                 startAutoplay();
             }
 
-            // Свайп
             container.addEventListener('touchstart', (e) => {
                 startX = e.touches[0].clientX;
                 isDragging = true;
@@ -1516,7 +1509,6 @@
                 setTimeout(startAutoplay, 3000);
             }, { passive: true });
 
-            // Кнопки навигации
             container.querySelectorAll('.outfit-carousel-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -1526,7 +1518,6 @@
                 });
             });
 
-            // При наведении - пауза
             container.addEventListener('mouseenter', () => {
                 if (autoplayInterval) clearInterval(autoplayInterval);
             });
@@ -1538,34 +1529,21 @@
                 const userLikes = JSON.parse(localStorage.getItem('userLikedOutfits') || '{}');
                 
                 if (userLikes[current]) {
-                    // Убираем лайк
                     delete userLikes[current];
                     localStorage.setItem('userLikedOutfits', JSON.stringify(userLikes));
-                    
-                    // Отправляем на сервер
                     await removeLike(outfitName);
-                    
-                    // Обновляем данные
                     await fetchLikes();
-                    
                     this.classList.remove('liked');
                     this.innerHTML = '👍 Лайкнуть этот костюм';
                     outfitMessage.textContent = '👎 Лайк убран!';
                     outfitMessage.style.color = '#d4a373';
                 } else {
-                    // Ставим лайк
                     userLikes[current] = true;
                     localStorage.setItem('userLikedOutfits', JSON.stringify(userLikes));
-                    
-                    // Отправляем на сервер
                     await sendLike(outfitName);
-                    
-                    // Обновляем данные
                     await fetchLikes();
-                    
                     this.classList.add('liked');
                     this.innerHTML = '❤️ Лайкнут!';
-                    
                     const reactions = [
                         '❤️ Отличный выбор! Варе нравится!',
                         '👗 Классный костюмчик!',
@@ -1579,20 +1557,17 @@
                 }
                 
                 update();
-                
                 setTimeout(() => {
                     outfitMessage.style.color = '#8a7a72';
                 }, 2000);
             });
 
-            // ====== ЗАГРУЗКА ДАННЫХ ======
             async function init() {
                 await fetchLikes();
                 update();
                 startAutoplay();
             }
 
-            // Обновляем лайки каждые 10 секунд (для синхронизации)
             setInterval(async () => {
                 await fetchLikes();
                 update();
