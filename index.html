@@ -1089,11 +1089,11 @@
 
                 <div class="corgi-stats">
                     <div class="corgi-stat">
-                        <div class="label">🍖 Вы дали</div>
+                        <div class="label">❤️ ВЫ ДАЛИ</div>
                         <span class="number" id="treatCount" aria-live="polite">0</span>
                     </div>
                     <div class="corgi-stat">
-                        <div class="label">❤️ Всего дали</div>
+                        <div class="label">❤️ ВСЕГО ДАЛИ</div>
                         <span class="number" id="totalTreatCount" aria-live="polite">0</span>
                     </div>
                 </div>
@@ -1125,7 +1125,7 @@
                 <div class="outfit-carousel-dots" id="outfitDots"></div>
                 
                 <div class="outfit-info">
-                    <div class="outfit-name" id="outfitName">Костюм №1</div>
+                    <div class="outfit-name" id="outfitName">Веселый банан</div>
                     <div class="outfit-likes">
                         <span class="heart-icon">❤️</span>
                         <span class="likes-count" id="outfitLikes">0</span>
@@ -1241,6 +1241,20 @@
     </footer>
 
     <script>
+        // ====== НАЗВАНИЯ КОСТЮМОВ ======
+        const OUTFIT_NAMES = [
+            'Веселый банан',
+            'Костюм тамады',
+            'Принцесса Роззи',
+            'Ваше Величество',
+            'Дело "о пропавшей вкусняшке"',
+            'Дорогу автобусу',
+            'Рыбка моя',
+            'Тургеневская девушка',
+            'Мохнатый Шмелл',
+            'Ариель'
+        ];
+
         // ====== ТАЙМЕР ======
         function updateTimer() {
             const wedding = new Date(2026, 8, 19, 16, 0, 0).getTime();
@@ -1271,7 +1285,6 @@
             const fallback = document.getElementById('heroFallback');
             
             if (video) {
-                // Если видео не загрузилось через 3 секунды - показываем fallback
                 setTimeout(function() {
                     if (video.readyState === 0) {
                         video.style.display = 'none';
@@ -1279,13 +1292,11 @@
                     }
                 }, 3000);
                 
-                // Если видео загрузилось - скрываем fallback
                 video.addEventListener('loadeddata', function() {
                     fallback.style.display = 'none';
                     video.style.display = 'block';
                 });
                 
-                // Если ошибка - показываем fallback
                 video.addEventListener('error', function() {
                     video.style.display = 'none';
                     fallback.style.display = 'block';
@@ -1420,7 +1431,7 @@
             let initialOffset = 0;
             let autoplayInterval = null;
 
-            // Загружаем лайки из localStorage
+            // Загружаем лайки из localStorage (общие для всех пользователей)
             function loadLikes() {
                 const data = localStorage.getItem('outfitLikes');
                 if (data) {
@@ -1456,12 +1467,12 @@
                     slide.className = 'outfit-carousel-slide';
                     const img = document.createElement('img');
                     img.src = `Костюм_${i}.png`;
-                    img.alt = `Костюм №${i}`;
+                    img.alt = OUTFIT_NAMES[i - 1];
                     img.loading = 'lazy';
                     img.onerror = function() {
                         this.style.display = 'none';
                         this.parentElement.style.background = '#e8e0da';
-                        this.parentElement.innerHTML = `<span style="color:#999;font-size:1.2rem;">🎭 Костюм ${i}</span>`;
+                        this.parentElement.innerHTML = `<span style="color:#999;font-size:1.2rem;">🎭 ${OUTFIT_NAMES[i - 1]}</span>`;
                     };
                     slide.appendChild(img);
                     slides.appendChild(slide);
@@ -1475,7 +1486,7 @@
                 for (let i = 0; i < total; i++) {
                     const dot = document.createElement('button');
                     dot.className = 'outfit-dot' + (i === 0 ? ' active' : '');
-                    dot.setAttribute('aria-label', `Костюм ${i + 1}`);
+                    dot.setAttribute('aria-label', OUTFIT_NAMES[i]);
                     dot.addEventListener('click', () => goTo(i));
                     dotsContainer.appendChild(dot);
                 }
@@ -1490,8 +1501,7 @@
                     dot.classList.toggle('active', index === current);
                 });
 
-                const num = current + 1;
-                outfitName.textContent = `Костюм №${num}`;
+                outfitName.textContent = OUTFIT_NAMES[current];
                 const likesCount = getLikes(current);
                 outfitLikes.textContent = likesCount;
 
@@ -1510,15 +1520,17 @@
             function updateTop() {
                 let maxLikes = 0;
                 let maxIndex = 0;
+                let hasLikes = false;
                 for (let i = 0; i < total; i++) {
                     const count = getLikes(i);
+                    if (count > 0) hasLikes = true;
                     if (count > maxLikes) {
                         maxLikes = count;
                         maxIndex = i;
                     }
                 }
-                if (maxLikes > 0) {
-                    topOutfitName.textContent = `Костюм №${maxIndex + 1}`;
+                if (hasLikes && maxLikes > 0) {
+                    topOutfitName.textContent = OUTFIT_NAMES[maxIndex];
                     topOutfitLikes.textContent = maxLikes;
                 } else {
                     topOutfitName.textContent = '—';
@@ -1594,6 +1606,7 @@
                 const userLikes = JSON.parse(localStorage.getItem('userLikedOutfits') || '{}');
                 
                 if (userLikes[current]) {
+                    // Убираем лайк
                     delete userLikes[current];
                     const newCount = getLikes(current) - 1;
                     setLikes(current, newCount);
@@ -1602,6 +1615,7 @@
                     outfitMessage.textContent = '👎 Лайк убран!';
                     outfitMessage.style.color = '#d4a373';
                 } else {
+                    // Ставим лайк
                     userLikes[current] = true;
                     const newCount = getLikes(current) + 1;
                     setLikes(current, newCount);
@@ -1641,7 +1655,10 @@
             const treatMessage = document.getElementById('treatMessage');
 
             if (treatBtn && treatCount && totalTreatCount && treatMessage) {
+                // Личный счетчик пользователя
                 let personalCount = parseInt(localStorage.getItem('treatCount')) || 0;
+                
+                // Общий счетчик (все пользователи)
                 let totalCount = parseInt(localStorage.getItem('totalTreatCount')) || 0;
                 
                 treatCount.textContent = personalCount;
@@ -1659,23 +1676,30 @@
                 ];
 
                 treatBtn.addEventListener('click', function() {
+                    // Увеличиваем личный счетчик
                     personalCount++;
+                    // Увеличиваем общий счетчик
                     totalCount++;
                     
+                    // Сохраняем
                     localStorage.setItem('treatCount', personalCount);
                     localStorage.setItem('totalTreatCount', totalCount);
                     
+                    // Обновляем отображение
                     treatCount.textContent = personalCount;
                     totalTreatCount.textContent = totalCount;
 
+                    // Показываем реакцию
                     const randomIndex = Math.floor(Math.random() * reactions.length);
                     treatMessage.textContent = reactions[randomIndex];
 
+                    // Анимация кнопки
                     this.style.backgroundColor = '#e8b88a';
                     setTimeout(() => {
                         this.style.backgroundColor = '#d4a373';
                     }, 300);
 
+                    // Анимация сообщения
                     treatMessage.style.color = '#d4a373';
                     treatMessage.style.transform = 'scale(1.05)';
                     setTimeout(() => {
