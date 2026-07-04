@@ -4,11 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Алексей & Татьяна | Свадьба</title>
+    
+    <!-- SEO Мета-теги -->
+    <meta name="description" content="Свадьба Алексея и Татьяны 19 сентября 2026. Приглашаем на праздник на Клязминском водохранилище." />
+    <meta property="og:title" content="Алексей & Татьяна | Свадьба" />
+    <meta property="og:description" content="Приглашаем на нашу свадьбу! 19 сентября 2026" />
+    <meta property="og:image" content="Мы_1.webp" />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#faf8f6" />
+    
+    <!-- Preload только для критичных ресурсов -->
+    <link rel="preload" as="image" href="hero-fallback.webp" />
+    <link rel="preload" as="video" href="Танец.mp4" />
+    
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
     <style>
-        /* ----- БАЗА ----- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Inter', sans-serif;
             background: #faf8f6;
@@ -16,7 +34,11 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
 
         /* ----- ГЛАВНЫЙ ЭКРАН С ВИДЕО ----- */
         .hero {
@@ -30,6 +52,7 @@
             color: #fff;
             padding: 20px;
             overflow: hidden;
+            background: #2d2a27; /* fallback на случай проблем с видео */
         }
         .hero-video {
             position: absolute;
@@ -40,13 +63,26 @@
             object-fit: cover;
             z-index: 0;
         }
+        .hero-fallback-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            display: none; /* показываем только если видео не загрузилось */
+        }
+        .hero-video:not(:loaded) ~ .hero-fallback-image {
+            display: block;
+        }
         .hero-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, rgba(20, 30, 40, 0.3) 0%, rgba(0,0,0,0.2) 100%);
+            background: linear-gradient(180deg, rgba(20, 30, 40, 0.5) 0%, rgba(0,0,0,0.35) 100%); /* усилен для контраста */
             z-index: 1;
         }
         .hero-content {
@@ -76,33 +112,30 @@
             border: 1px solid rgba(255,255,255,0.2);
             margin-bottom: 20px;
         }
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 12vw, 6.5rem);
-            font-weight: 600;
-            font-style: italic;
-            text-shadow: 0 4px 40px rgba(0,0,0,0.3);
-            margin-bottom: 10px;
-        }
         .hero .names {
-            font-size: clamp(1.8rem, 5vw, 3.2rem);
+            font-size: clamp(2.5rem, 8vw, 5rem);
             font-weight: 300;
-            letter-spacing: 6px;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            letter-spacing: 8px;
+            text-shadow: 0 2px 30px rgba(0,0,0,0.4); /* усилен для контраста */
+            margin: 0;
+            color: #fff;
         }
         .hero .sub-info {
             margin-top: 25px;
             font-size: 1.1rem;
-            opacity: 0.9;
+            opacity: 0.95;
             letter-spacing: 2px;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.3);
             display: inline-block;
             padding: 12px 32px;
             border-radius: 50px;
             backdrop-filter: blur(4px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
         }
-        .hero .sub-info span { margin: 0 12px; }
+        .hero .sub-info span {
+            margin: 0 12px;
+        }
 
         .btn-primary {
             display: inline-block;
@@ -143,11 +176,7 @@
             box-shadow: 0 12px 40px rgba(52, 168, 83, 0.4);
         }
 
-        /* ----- КАРУСЕЛЬ ДЛЯ ФОТО "МЫ" ----- */
-        .us-section { padding: 80px 0; background: #fff; }
-        .us-section h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; text-align: center; color: #2d2a27; margin-bottom: 10px; }
-        .us-section .sub { text-align: center; color: #6b6560; margin-bottom: 40px; font-size: 1.1rem; }
-
+        /* ----- КАРУСЕЛИ ----- */
         .carousel-container {
             position: relative;
             max-width: 900px;
@@ -155,28 +184,36 @@
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            touch-action: pan-y; /* улучшает свайп */
         }
         .carousel-slides {
             display: flex;
-            transition: transform 0.5s ease;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
         }
         .carousel-slide {
             min-width: 100%;
             height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #faf8f6;
         }
         .carousel-slide img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            background: #faf8f6;
+            background: #e8e0da;
+            user-select: none;
+            -webkit-user-drag: none;
         }
         .carousel-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255,255,255,0.7);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(4px);
-            border: none;
+            border: 1px solid rgba(255,255,255,0.3);
             border-radius: 50%;
             width: 48px;
             height: 48px;
@@ -184,15 +221,26 @@
             cursor: pointer;
             transition: 0.3s;
             color: #2d2a27;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .carousel-btn:hover {
             background: #fff;
-            transform: translateY(-50%) scale(1.05);
+            transform: translateY(-50%) scale(1.08);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.2);
         }
-        .carousel-btn.prev { left: 16px; }
-        .carousel-btn.next { right: 16px; }
+        .carousel-btn:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+        .carousel-btn.prev {
+            left: 16px;
+        }
+        .carousel-btn.next {
+            right: 16px;
+        }
 
         .carousel-dots {
             display: flex;
@@ -215,12 +263,104 @@
             background: #8a7a72;
             transform: scale(1.2);
         }
-        .carousel-dot:hover { background: #b0a49c; }
+        .carousel-dot:hover {
+            background: #b0a49c;
+        }
 
-        /* ----- СЕКЦИЯ С ВАРЕЙ И СЧЁТЧИКОМ ----- */
-        .corgi-section { padding: 80px 0; background: #fff; text-align: center; }
-        .corgi-section h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #2d2a27; margin-bottom: 10px; }
-        .corgi-section .sub { color: #6b6560; margin-bottom: 30px; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        /* ----- СЕКЦИИ ----- */
+        .us-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+        .us-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            text-align: center;
+            color: #2d2a27;
+            margin-bottom: 10px;
+            hyphens: auto;
+        }
+        .us-section .sub {
+            text-align: center;
+            color: #6b6560;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .venue-section {
+            padding: 80px 0;
+            background: #f3f0ec;
+        }
+        .venue-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            text-align: center;
+            color: #2d2a27;
+            margin-bottom: 10px;
+        }
+        .venue-section .sub {
+            text-align: center;
+            color: #6b6560;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .info-block {
+            padding: 60px 0;
+            background: #fff;
+            border-bottom: 1px solid #f0ebe6;
+        }
+        .info-block:last-of-type {
+            border-bottom: none;
+        }
+        .info-block h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            text-align: center;
+            color: #2d2a27;
+            margin-bottom: 16px;
+        }
+        .info-block .content {
+            max-width: 750px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: #4a3f3a;
+            line-height: 1.8;
+        }
+        .info-block .content p {
+            margin-bottom: 16px;
+        }
+        .info-block .content .highlight {
+            background: #f8f5f2;
+            padding: 20px 30px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #b8a89e;
+        }
+        .info-block .content .highlight p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ----- КОРГИ С КНОПКОЙ ----- */
+        .corgi-section {
+            padding: 80px 0;
+            background: #fff;
+            text-align: center;
+        }
+        .corgi-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #2d2a27;
+            margin-bottom: 10px;
+        }
+        .corgi-section .sub {
+            color: #6b6560;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
         .corgi-wrapper {
             max-width: 500px;
@@ -247,6 +387,10 @@
             height: 100%;
             object-fit: contain;
             background: #fff;
+            transition: transform 0.3s ease;
+        }
+        .corgi-wrapper .corgi-image img:hover {
+            transform: scale(1.02);
         }
 
         .corgi-counter {
@@ -271,22 +415,33 @@
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.3s ease;
+            transition: 0.2s ease;
             box-shadow: 0 6px 20px rgba(212, 163, 115, 0.3);
             letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
         }
         .btn-treat:hover {
             background: #c49162;
-            transform: translateY(-2px) scale(1.02);
+            transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(212, 163, 115, 0.4);
         }
         .btn-treat:active {
             transform: scale(0.95);
         }
-        .btn-treat:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
+        .btn-treat .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
         }
 
         .treat-message {
@@ -298,60 +453,97 @@
             font-style: italic;
         }
 
-        /* ----- ОСТАЛЬНЫЕ СЕКЦИИ ----- */
-        .info-block {
-            padding: 60px 0;
-            background: #fff;
-            border-bottom: 1px solid #f0ebe6;
+        /* ----- ТАЙМЕР ----- */
+        .timer-section {
+            padding: 80px 0;
+            text-align: center;
+            background: #f3f0ec;
         }
-        .info-block:last-of-type { border-bottom: none; }
-        .info-block h2 {
+        .timer-section h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.4rem;
+            font-size: 2.6rem;
+            color: #2d2a27;
+        }
+        .timer-wrapper {
+            position: relative;
+        }
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 35px;
+        }
+        .timer-item {
+            background: #fff;
+            padding: 20px 32px;
+            border-radius: 24px;
+            min-width: 110px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid #eae5e0;
+        }
+        .timer-item .num {
+            display: block;
+            font-size: 3.4rem;
+            font-weight: 600;
+            color: #2d2a27;
+            letter-spacing: 2px;
+        }
+        .timer-item .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #8a8480;
+            margin-top: 4px;
+        }
+        .timer-ended {
+            font-size: 2.5rem;
+            color: #2d2a27;
+            padding: 30px 0;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ----- ДЕТАЛИ ----- */
+        .details-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+        .details-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
             text-align: center;
             color: #2d2a27;
-            margin-bottom: 16px;
         }
-        .info-block .content {
-            max-width: 750px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-            color: #4a3f3a;
-            line-height: 1.8;
-        }
-        .info-block .content p { margin-bottom: 16px; }
-        .info-block .content .highlight {
-            background: #f8f5f2;
-            padding: 20px 30px;
-            border-radius: 16px;
-            margin: 20px 0;
-            border-left: 4px solid #b8a89e;
-        }
-        .info-block .content .highlight p:last-child { margin-bottom: 0; }
-
-        .venue-section { padding: 80px 0; background: #f3f0ec; }
-        .venue-section h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; text-align: center; color: #2d2a27; margin-bottom: 10px; }
-        .venue-section .sub { text-align: center; color: #6b6560; margin-bottom: 40px; font-size: 1.1rem; }
-
-        .timer-section { padding: 80px 0; text-align: center; background: #f3f0ec; }
-        .timer-section h2 { font-family: 'Playfair Display', serif; font-size: 2.6rem; color: #2d2a27; }
-        .timer { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-top: 35px; }
-        .timer-item { background: #fff; padding: 20px 32px; border-radius: 24px; min-width: 110px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #eae5e0; }
-        .timer-item .num { display: block; font-size: 3.4rem; font-weight: 600; color: #2d2a27; letter-spacing: 2px; }
-        .timer-item .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: #8a8480; margin-top: 4px; }
-
-        .details-section { padding: 80px 0; background: #fff; }
         .details-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 30px;
             margin-top: 30px;
         }
-        .detail-card { background: #faf8f6; padding: 35px 25px; border-radius: 24px; text-align: center; border: 1px solid #f0ebe6; transition: 0.3s ease; }
-        .detail-card:hover { border-color: #c0b5ad; transform: translateY(-4px); }
-        .detail-card .icon { font-size: 2.8rem; margin-bottom: 12px; }
-        .detail-card h3 { font-size: 1.2rem; margin-bottom: 6px; }
-        .detail-card p { color: #6b6560; font-size: 0.95rem; }
+        .detail-card {
+            background: #faf8f6;
+            padding: 35px 25px;
+            border-radius: 24px;
+            text-align: center;
+            border: 1px solid #f0ebe6;
+            transition: 0.3s ease;
+        }
+        .detail-card:hover {
+            border-color: #c0b5ad;
+            transform: translateY(-4px);
+        }
+        .detail-card .icon {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+        }
+        .detail-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+        .detail-card p {
+            color: #6b6560;
+            font-size: 0.95rem;
+        }
         .detail-card .extra-info {
             margin-top: 12px;
             padding-top: 12px;
@@ -360,45 +552,177 @@
             color: #8a7a72;
         }
 
-        .map-section { padding: 60px 0 80px; background: #f3f0ec; }
-        .map-section h2 { font-family: 'Playfair Display', serif; font-size: 2rem; text-align: center; margin-bottom: 20px; color: #2d2a27; }
-        .map-section iframe { width: 100%; height: 400px; border: 0; border-radius: 28px; box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+        /* ----- КАРТА ----- */
+        .map-section {
+            padding: 60px 0 80px;
+            background: #f3f0ec;
+        }
+        .map-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2d2a27;
+        }
+        .map-section iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+            border-radius: 28px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
 
-        .rsvp-section { padding: 80px 0; background: #fff; text-align: center; }
-        .rsvp-section h2 { font-family: 'Playfair Display', serif; font-size: 2.6rem; margin-bottom: 8px; color: #2d2a27; }
-        .rsvp-section .subtitle { color: #6b6560; margin-bottom: 30px; font-size: 1.05rem; }
+        .rsvp-section {
+            padding: 80px 0;
+            background: #fff;
+            text-align: center;
+        }
+        .rsvp-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            margin-bottom: 8px;
+            color: #2d2a27;
+        }
+        .rsvp-section .subtitle {
+            color: #6b6560;
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+        }
 
-        footer { background: #2d2a27; color: #c5bcb5; padding: 40px 20px; text-align: center; }
-        footer .names { font-size: 2rem; font-family: 'Playfair Display', serif; letter-spacing: 6px; }
+        footer {
+            background: #2d2a27;
+            color: #c5bcb5;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        footer .names {
+            font-size: 2rem;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 6px;
+        }
 
+        /* ----- АДАПТИВ ----- */
         @media (max-width: 820px) {
-            .carousel-slide { height: 300px; }
-            .timer-item { min-width: 80px; padding: 16px 20px; }
-            .timer-item .num { font-size: 2.4rem; }
-            .hero h1 { font-size: 3.6rem; }
-            .carousel-btn { width: 36px; height: 36px; font-size: 1rem; }
-            .info-block h2 { font-size: 2rem; }
-            .info-block .content { font-size: 1rem; }
-            .details-grid { grid-template-columns: 1fr 1fr; }
-            .corgi-wrapper .corgi-image { height: 220px; }
+            .carousel-slide {
+                height: 300px;
+            }
+            .timer-item {
+                min-width: 80px;
+                padding: 16px 20px;
+            }
+            .timer-item .num {
+                font-size: 2.4rem;
+            }
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            .info-block h2 {
+                font-size: 2rem;
+            }
+            .info-block .content {
+                font-size: 1rem;
+            }
+            .details-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .corgi-wrapper .corgi-image {
+                height: 220px;
+            }
+            .hero .names {
+                font-size: clamp(2rem, 6vw, 3.5rem);
+                letter-spacing: 4px;
+            }
         }
         @media (max-width: 480px) {
-            .carousel-slide { height: 220px; }
-            .timer { gap: 12px; }
-            .timer-item { min-width: 60px; padding: 12px 14px; }
-            .timer-item .num { font-size: 1.8rem; }
-            .hero .sub-info { font-size: 0.85rem; padding: 8px 18px; }
-            .hero .sub-info span { margin: 0 6px; }
-            .map-section iframe { height: 280px; }
-            .carousel-btn { width: 30px; height: 30px; font-size: 0.8rem; }
-            .info-block { padding: 40px 0; }
-            .info-block h2 { font-size: 1.6rem; }
-            .info-block .content .highlight { padding: 16px 20px; }
-            .details-grid { grid-template-columns: 1fr; }
-            .corgi-wrapper { padding: 20px; }
-            .corgi-wrapper .corgi-image { height: 180px; }
-            .corgi-counter span { font-size: 1.6rem; }
-            .btn-treat { padding: 12px 30px; font-size: 1rem; }
+            .carousel-slide {
+                height: 220px;
+            }
+            .timer {
+                gap: 12px;
+            }
+            .timer-item {
+                min-width: 60px;
+                padding: 12px 14px;
+            }
+            .timer-item .num {
+                font-size: 1.8rem;
+            }
+            .hero .sub-info {
+                font-size: 0.85rem;
+                padding: 8px 18px;
+            }
+            .hero .sub-info span {
+                margin: 0 6px;
+            }
+            .map-section iframe {
+                height: 280px;
+            }
+            .carousel-btn {
+                width: 34px;
+                height: 34px;
+                font-size: 1rem;
+            }
+            .info-block {
+                padding: 40px 0;
+            }
+            .info-block h2 {
+                font-size: 1.6rem;
+            }
+            .info-block .content .highlight {
+                padding: 16px 20px;
+            }
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            .corgi-wrapper {
+                padding: 20px;
+            }
+            .corgi-wrapper .corgi-image {
+                height: 180px;
+            }
+            .corgi-counter span {
+                font-size: 1.6rem;
+            }
+            .btn-treat {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+            .hero .names {
+                font-size: clamp(1.8rem, 5vw, 2.8rem);
+                letter-spacing: 2px;
+            }
+            .timer-ended {
+                font-size: 1.8rem;
+            }
+            .us-section h2,
+            .venue-section h2,
+            .corgi-section h2,
+            .details-section h2,
+            .rsvp-section h2 {
+                font-size: 2rem !important;
+            }
+        }
+        @media (max-width: 360px) {
+            .hero .names {
+                font-size: 1.8rem;
+            }
+            .timer-item {
+                min-width: 50px;
+                padding: 8px 10px;
+            }
+            .timer-item .num {
+                font-size: 1.4rem;
+            }
+            .btn-primary, .btn-google {
+                padding: 12px 30px;
+                font-size: 0.9rem;
+            }
+            .hero .sub-info {
+                font-size: 0.75rem;
+                padding: 6px 12px;
+            }
         }
     </style>
 </head>
@@ -406,14 +730,19 @@
 
     <!-- ====== ГЛАВНЫЙ ЭКРАН С ВИДЕО ====== -->
     <section class="hero">
-        <video class="hero-video" autoplay muted loop playsinline>
+        <video class="hero-video" autoplay muted loop playsinline poster="hero-fallback.webp">
             <source src="Танец.mp4" type="video/mp4" />
+            <!-- Добавьте другие форматы для лучшей совместимости -->
+            <!-- <source src="Танец.webm" type="video/webm" /> -->
+            <!-- <source src="Танец.ogv" type="video/ogg" /> -->
+            Ваш браузер не поддерживает видео.
         </video>
+        <!-- Fallback-изображение, если видео не загрузилось -->
+        <img class="hero-fallback-image" src="hero-fallback.webp" alt="Алексей и Татьяна" />
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <div class="hero-badge">Приглашение</div>
-            <h1>Скоро свадьба!</h1>
-            <div class="names">Алексей &amp; Татьяна</div>
+            <h1 class="names">Алексей &amp; Татьяна</h1>
             <div class="sub-info">
                 📅 19 сентября 2026 <span>·</span> ⏰ предварительно с утра до вечера
             </div>
@@ -421,26 +750,26 @@
         </div>
     </section>
 
-    <!-- ====== КАРУСЕЛЬ "МЫ" (10 ФОТО) ====== -->
+    <!-- ====== КАРУСЕЛЬ "МЫ" ====== -->
     <section class="us-section">
         <div class="container">
             <h2>Вместе в любых обстоятельствах</h2>
             <p class="sub">А мы — разные, но одинаково счастливые</p>
             <div class="carousel-container" id="usCarousel">
                 <div class="carousel-slides" id="usSlides">
-                    <div class="carousel-slide"><img src="Мы_1.png" alt="Мы 1" /></div>
-                    <div class="carousel-slide"><img src="Мы_2.png" alt="Мы 2" /></div>
-                    <div class="carousel-slide"><img src="Мы_3.png" alt="Мы 3" /></div>
-                    <div class="carousel-slide"><img src="Мы_4.png" alt="Мы 4" /></div>
-                    <div class="carousel-slide"><img src="Мы_5.png" alt="Мы 5" /></div>
-                    <div class="carousel-slide"><img src="Мы_6.png" alt="Мы 6" /></div>
-                    <div class="carousel-slide"><img src="Мы_7.png" alt="Мы 7" /></div>
-                    <div class="carousel-slide"><img src="Мы_8.png" alt="Мы 8" /></div>
-                    <div class="carousel-slide"><img src="Мы_9.png" alt="Мы 9" /></div>
-                    <div class="carousel-slide"><img src="Мы_10.png" alt="Мы 10" /></div>
+                    <div class="carousel-slide"><img src="Мы_1.webp" alt="Алексей и Татьяна фото 1" fetchpriority="high" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
+                    <div class="carousel-slide"><img src="Мы_2.webp" alt="Алексей и Татьяна фото 2" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
+                    <div class="carousel-slide"><img src="Мы_3.webp" alt="Алексей и Татьяна фото 3" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
+                    <div class="carousel-slide"><img src="Мы_4.webp" alt="Алексей и Татьяна фото 4" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
+                    <div class="carousel-slide"><img src="Мы_5.webp" alt="Алексей и Татьяна фото 5" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
+                    <div class="carousel-slide"><img src="Мы_6.webp" alt="Алексей и Татьяна фото 6" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
+                    <div class="carousel-slide"><img src="Мы_7.webp" alt="Алексей и Татьяна фото 7" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
+                    <div class="carousel-slide"><img src="Мы_8.webp" alt="Алексей и Татьяна фото 8" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
+                    <div class="carousel-slide"><img src="Мы_9.webp" alt="Алексей и Татьяна фото 9" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
+                    <div class="carousel-slide"><img src="Мы_10.webp" alt="Алексей и Татьяна фото 10" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
                 </div>
-                <button class="carousel-btn prev" onclick="moveSlide('us', -1)">‹</button>
-                <button class="carousel-btn next" onclick="moveSlide('us', 1)">›</button>
+                <button class="carousel-btn prev" data-carousel="us" aria-label="Предыдущее фото">‹</button>
+                <button class="carousel-btn next" data-carousel="us" aria-label="Следующее фото">›</button>
             </div>
             <div class="carousel-dots" id="usDots"></div>
         </div>
@@ -453,12 +782,12 @@
             <p class="sub">Уютная веранда на берегу Клязминского водохранилища</p>
             <div class="carousel-container" id="venueCarousel">
                 <div class="carousel-slides" id="venueSlides">
-                    <div class="carousel-slide"><img src="Площадка.png" alt="Площадка 1" /></div>
-                    <div class="carousel-slide"><img src="Площадка_2.png" alt="Площадка 2" /></div>
-                    <div class="carousel-slide"><img src="Площадка_3.png" alt="Площадка 3" /></div>
+                    <div class="carousel-slide"><img src="Площадка.webp" alt="Площадка для свадьбы вид 1" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
+                    <div class="carousel-slide"><img src="Площадка_2.webp" alt="Площадка для свадьбы вид 2" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
+                    <div class="carousel-slide"><img src="Площадка_3.webp" alt="Площадка для свадьбы вид 3" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>📸 Фото не загружено</span>'" /></div>
                 </div>
-                <button class="carousel-btn prev" onclick="moveSlide('venue', -1)">‹</button>
-                <button class="carousel-btn next" onclick="moveSlide('venue', 1)">›</button>
+                <button class="carousel-btn prev" data-carousel="venue" aria-label="Предыдущее фото">‹</button>
+                <button class="carousel-btn next" data-carousel="venue" aria-label="Следующее фото">›</button>
             </div>
             <div class="carousel-dots" id="venueDots"></div>
         </div>
@@ -469,11 +798,11 @@
         <div class="container">
             <h2>🎉 Формат и атмосфера</h2>
             <div class="content">
-                <p>У нас планируется лёгкая непринуждённая атмосфера и много веселья. В программе вкусная еда, развлечения и весёлые конкурсы.</p>
-                <p>У нас отсутствует определённая тематика свадьбы, нет строгого дресс-кода — будем рады гостям, одетым в стиле <strong>Casual</strong>.</p>
+                <p>Мы готовим для вас лёгкий праздник без пафоса: вкусно, весело и с душой. Будет еда, конкурсы, танцы и отличная компания.</p>
+                <p>Дресс-кода нет — мы хотим видеть вас настоящими и счастливыми.</p>
                 <div class="highlight">
                     <p><strong>Творческие идеи приветствуются!</strong></p>
-                    <p>Если ты планируешь подготовить для нас песню, сценку или у тебя есть любые другие творческие идеи, пожалуйста, сообщи нам, и мы включим твоё выступление в тайминг мероприятия.</p>
+                    <p>Если есть творческий порыв — песня, сценка, сюрприз — мы только за! Просто предупредите нас, и мы всё впишем в тайминг.</p>
                 </div>
             </div>
         </div>
@@ -484,10 +813,10 @@
         <div class="container">
             <h2>🎁 О подарках</h2>
             <div class="content">
-                <p>Твоё présence на нашем празднике — лучший подарок для нас!</p>
+                <p>Самое ценное для нас — вы рядом. Это лучший подарок!</p>
                 <div class="highlight">
-                    <p><strong>Пожалуйста, не дари нам большие букеты живых цветов</strong>, так как мы совсем не успеем насладиться их красотой в полной мере.</p>
-                    <p>Будем рады любой другой альтернативе — твоим замечательным идеям или в денежном эквиваленте.</p>
+                    <p>Если захотите порадовать нас ещё чем-то, просим без больших цветочных букетов, постельного белья и чайных сервизов — всё это у нас уже есть.</p>
+                    <p>И мы будем очень рады вашей креативности или денежному конверту — это поможет нам осуществить мечты после свадьбы.</p>
                 </div>
             </div>
         </div>
@@ -498,20 +827,20 @@
         <div class="container">
             <h2>Варя</h2>
             <p class="sub">
-                Главный эксперт по вкусняшкам и вашим сердечкам<br/>
+                Официальный дегустатор вкусняшек и хранительница хорошего настроения<br/>
                 <span style="font-style: italic; font-size: 0.9rem;">
-                    «Я здесь просто кайфую и виляю хвостиком! Жду вкусняшек и краду ваши сердечки»
+                    «Я пришла на свадьбу, чтобы есть, вилять хвостом и получать лайки»
                 </span>
             </p>
             <div class="corgi-wrapper">
                 <div class="corgi-image">
-                    <img src="Варя.png" alt="Корги Варя" id="corgiImage" />
+                    <img src="Варя.webp" alt="Корги Варя" id="corgiImage" onerror="this.style.display='none';this.parentElement.style.background='#e8e0da';this.parentElement.innerHTML='<span style=\'color:#999;font-size:1.2rem;\'>🐕 Варя</span>'" />
                 </div>
                 <div class="corgi-counter">
-                    🍖 Вкусняшек дано Варе: <span id="treatCount">0</span>
+                    🍖 Вкусняшек дано Варе: <span id="treatCount" aria-live="polite">0</span>
                 </div>
-                <button class="btn-treat" id="treatBtn" onclick="giveTreat()">Дать Варе вкусняшку</button>
-                <div class="treat-message" id="treatMessage">👆 Нажми, чтобы порадовать Варю!</div>
+                <button class="btn-treat" id="treatBtn">Дать Варе вкусняшку</button>
+                <div class="treat-message" id="treatMessage" aria-live="polite">👆 Нажми, чтобы порадовать Варю!</div>
             </div>
         </div>
     </section>
@@ -520,19 +849,22 @@
     <section class="timer-section">
         <div class="container">
             <h2>⏳ До нашей свадьбы</h2>
-            <div class="timer" id="countdown">
-                <div class="timer-item"><span class="num" id="days">00</span><span class="label">Дней</span></div>
-                <div class="timer-item"><span class="num" id="hours">00</span><span class="label">Часов</span></div>
-                <div class="timer-item"><span class="num" id="minutes">00</span><span class="label">Минут</span></div>
-                <div class="timer-item"><span class="num" id="seconds">00</span><span class="label">Секунд</span></div>
+            <div class="timer-wrapper" aria-live="polite">
+                <div class="timer" id="countdown">
+                    <div class="timer-item"><span class="num" id="days">00</span><span class="label">Дней</span></div>
+                    <div class="timer-item"><span class="num" id="hours">00</span><span class="label">Часов</span></div>
+                    <div class="timer-item"><span class="num" id="minutes">00</span><span class="label">Минут</span></div>
+                    <div class="timer-item"><span class="num" id="seconds">00</span><span class="label">Секунд</span></div>
+                </div>
+                <div id="timerMessage"></div>
             </div>
         </div>
     </section>
 
-    <!-- ====== РАСШИРЕННЫЙ БЛОК "ДЕТАЛИ" ====== -->
+    <!-- ====== ДЕТАЛИ ====== -->
     <section class="details-section">
         <div class="container">
-            <h2 style="font-family:'Playfair Display',serif; font-size:2.6rem; text-align:center;">Детали события</h2>
+            <h2>Детали события</h2>
             <div class="details-grid">
                 <div class="detail-card">
                     <div class="icon">📅</div>
@@ -555,7 +887,7 @@
                 <div class="detail-card">
                     <div class="icon">👗</div>
                     <h3>Дресс-код</h3>
-                    <p>Casual</p>
+                    <p>Свободный</p>
                     <div class="extra-info">Удобная одежда и обувь, будет много движения</div>
                 </div>
                 <div class="detail-card">
@@ -568,7 +900,7 @@
                     <div class="icon">🎁</div>
                     <h3>Подарки</h3>
                     <p>Ваше присутствие — лучший подарок</p>
-                    <div class="extra-info">Без больших букетов, рады идеям и денежному эквиваленту</div>
+                    <div class="extra-info">Без цветов, белья и сервизов</div>
                 </div>
             </div>
         </div>
@@ -578,7 +910,7 @@
     <section class="map-section">
         <div class="container">
             <h2>🗺️ Как добраться</h2>
-            <iframe src="https://yandex.ru/map-widget/v1/?ll=37.550634%2C55.982104&z=15&pt=37.550634,55.982104"></iframe>
+            <iframe src="https://yandex.ru/map-widget/v1/?ll=37.550634%2C55.982104&z=15&pt=37.550634%2C55.982104&l=map&pt=37.550634%2C55.982104~37.550634%2C55.982104" title="Карта места проведения свадьбы" loading="lazy"></iframe>
         </div>
     </section>
 
@@ -589,6 +921,7 @@
             <p class="subtitle">Пожалуйста, ответьте на несколько вопросов — это поможет нам организовать всё идеально!</p>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLScVszJmWrbkUrjo24wCQEsM91hlztP6G8lQGjbWO0_k_1s7wQ/viewform?usp=header" 
                target="_blank" 
+               rel="noopener noreferrer"
                class="btn-google">
                📝 Ответить на вопросы
             </a>
@@ -611,36 +944,54 @@
             const wedding = new Date(2026, 8, 19, 16, 0, 0).getTime();
             const now = new Date().getTime();
             const diff = wedding - now;
+            
+            const timerContainer = document.getElementById('countdown');
+            const timerMessage = document.getElementById('timerMessage');
+            
             if (diff < 0) {
-                ['days','hours','minutes','seconds'].forEach(id => document.getElementById(id).textContent = '00');
+                timerContainer.style.display = 'none';
+                timerMessage.innerHTML = '<div class="timer-ended">🎉 Свадьба уже состоялась!<br/>Спасибо, что были с нами! ❤️</div>';
                 return;
             }
-            document.getElementById('days').textContent = String(Math.floor(diff / (1000*60*60*24))).padStart(2, '0');
-            document.getElementById('hours').textContent = String(Math.floor((diff % (1000*60*60*24)) / (1000*60*60))).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(Math.floor((diff % (1000*60*60)) / (1000*60))).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(Math.floor((diff % (1000*60)) / 1000)).padStart(2, '0');
+            
+            document.getElementById('days').textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+            document.getElementById('hours').textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
         }
+        
         updateTimer();
         setInterval(updateTimer, 1000);
 
-        // ====== УНИВЕРСАЛЬНАЯ КАРУСЕЛЬ ======
-        const carousels = {};
-
-        function initCarousel(name, containerId, slidesId, dotsId, autoplayTime) {
+        // ====== КАРУСЕЛИ С ПОДДЕРЖКОЙ СВАЙПА ======
+        function initCarousel(name, containerId, slidesId, dotsId, autoplay = false) {
             const container = document.getElementById(containerId);
             const slides = document.getElementById(slidesId);
             const dotsContainer = document.getElementById(dotsId);
+            
+            if (!container || !slides || !dotsContainer) {
+                console.warn('Carousel element not found:', containerId);
+                return;
+            }
+            
             const total = slides.children.length;
-
+            if (total === 0) {
+                console.warn('Carousel has no slides:', name);
+                return;
+            }
+            
             let current = 0;
-            let interval = null;
+            let autoplayInterval = null;
+            let startX = 0;
+            let isDragging = false;
+            let initialOffset = 0;
 
             // Создаём точки
             dotsContainer.innerHTML = '';
             for (let i = 0; i < total; i++) {
                 const dot = document.createElement('button');
                 dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-                dot.setAttribute('data-index', i);
+                dot.setAttribute('aria-label', `Перейти к слайду ${i + 1}`);
                 dot.addEventListener('click', () => goTo(i));
                 dotsContainer.appendChild(dot);
             }
@@ -656,12 +1007,132 @@
             function goTo(index) {
                 current = (index + total) % total;
                 update();
-                resetAutoplay();
             }
 
             function next() { goTo(current + 1); }
             function prev() { goTo(current - 1); }
 
+            // ====== СВАЙП (Touch Events) ======
+            container.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+                initialOffset = current;
+                resetAutoplay();
+            }, { passive: true });
+
+            container.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                const diff = startX - e.touches[0].clientX;
+                const threshold = 30;
+                
+                if (Math.abs(diff) > threshold) {
+                    if (diff > 0 && initialOffset < total - 1) {
+                        goTo(initialOffset + 1);
+                        isDragging = false;
+                    } else if (diff < 0 && initialOffset > 0) {
+                        goTo(initialOffset - 1);
+                        isDragging = false;
+                    }
+                }
+            }, { passive: true });
+
+            container.addEventListener('touchend', () => {
+                isDragging = false;
+                if (autoplay && total > 1) startAutoplay();
+            }, { passive: true });
+
+            // ====== КНОПКИ ======
+            container.querySelectorAll('.carousel-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (btn.classList.contains('prev')) prev();
+                    else next();
+                    resetAutoplay();
+                });
+            });
+
+            // ====== АВТОПРОКРУТКА ======
             function startAutoplay() {
-                if (autoplayTime > 0) {
-                    interval = setInterval(next, autoplayTime);
+                if (autoplayInterval) clearInterval(autoplayInterval);
+                if (autoplay && total > 1) {
+                    autoplayInterval = setInterval(next, 4000);
+                }
+            }
+
+            function resetAutoplay() {
+                if (autoplay && total > 1) {
+                    clearInterval(autoplayInterval);
+                    startAutoplay();
+                }
+            }
+
+            // Пауза при наведении
+            if (autoplay && total > 1) {
+                container.addEventListener('mouseenter', () => {
+                    if (autoplayInterval) clearInterval(autoplayInterval);
+                });
+                container.addEventListener('mouseleave', startAutoplay);
+            }
+
+            // Инициализация
+            update();
+            if (autoplay && total > 1) startAutoplay();
+
+            return { goTo, next, prev, current: () => current };
+        }
+
+        // ====== ИНИЦИАЛИЗАЦИЯ ======
+        document.addEventListener('DOMContentLoaded', function() {
+            // Карусель "Мы"
+            initCarousel('us', 'usCarousel', 'usSlides', 'usDots', true);
+            
+            // Карусель "Площадка"
+            initCarousel('venue', 'venueCarousel', 'venueSlides', 'venueDots', true);
+
+            // ====== СЧЁТЧИК ВКУСНЯШЕК ======
+            const treatBtn = document.getElementById('treatBtn');
+            const treatCount = document.getElementById('treatCount');
+            const treatMessage = document.getElementById('treatMessage');
+
+            if (treatBtn && treatCount && treatMessage) {
+                let count = parseInt(localStorage.getItem('treatCount')) || 0;
+                treatCount.textContent = count;
+
+                const reactions = [
+                    '🍖 Вкусняшка! Варя счастлива!',
+                    '🐾 Варя виляет хвостом!',
+                    '😊 Варя довольно жуёт!',
+                    '🥰 Варя хочет ещё!',
+                    '✨ Варя сияет от радости!',
+                    '🐕 Варя уже ждёт следующую!',
+                    '💛 Варя благодарна тебе!',
+                    '🎉 Варя в восторге!'
+                ];
+
+                treatBtn.addEventListener('click', function(e) {
+                    count++;
+                    treatCount.textContent = count;
+                    localStorage.setItem('treatCount', count);
+
+                    const randomIndex = Math.floor(Math.random() * reactions.length);
+                    treatMessage.textContent = reactions[randomIndex];
+
+                    // Эффект на кнопке (вместо картинки)
+                    this.style.backgroundColor = '#e8b88a';
+                    setTimeout(() => {
+                        this.style.backgroundColor = '#d4a373';
+                    }, 300);
+
+                    // Анимация сообщения
+                    treatMessage.style.color = '#d4a373';
+                    treatMessage.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        treatMessage.style.color = '#8a7a72';
+                        treatMessage.style.transform = 'scale(1)';
+                    }, 800);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
